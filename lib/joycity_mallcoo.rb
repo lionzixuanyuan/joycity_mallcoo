@@ -23,7 +23,7 @@ module JoycityMallcoo
       params_str = params_arr.sort.join("&")
       sig = get_sig params_str
 
-      JSON.parse(Unirest.get("#{URL}#{action}/?#{params_str}&sig=#{sig}").raw_body)
+      JSON.parse(Unirest.post("#{URL}#{action}/?#{params_str}&sig=#{sig}").raw_body)
     end
 
     # 获取容易网首页信息
@@ -77,9 +77,37 @@ module JoycityMallcoo
     end
 
     # 兑换礼品
+    # 此处礼品ID参数的名称与文档中不一致，正确的参数名为 giftID，而非 giftId －－2014-07-28 注
     def points_exchange_gift card_no, gift_id
-      request "PointsExchangeGift", cardNo: card_no, giftId: gift_id
+      request "PointsExchangeGift", cardNo: card_no, giftID: gift_id
     end
 
   end
 end
+
+# 以下为测试用例
+# info = JoycityMallcoo::Info.new "4848b449c872bb2ce39ceb13f50095db", "31a243d62c1d4ef5a98bb4cae8fc22ff", 42
+# puts "---------获取容易网首页信息----------"
+# p info.get_index_info
+# puts "---------获取获取商场活动----------"
+# p info.get_activities
+# puts "---------按商户ID返回商户详细信息----------"
+# p info.get_brand_by_id 1
+# puts "---------按商户类型ID返回商户----------"
+# # 内部错误，未调通
+# p info.get_brand_by_type_id 210
+# puts "---------根据拼音首字母搜索----------"
+# p info.get_brand_by_type_letter "q"
+# puts "---------获取有优惠的品牌优惠信----------"
+# p info.get_brand_have_preferential
+# puts "---------获取品牌类型----------"
+# p info.get_brand_type
+# puts "---------查询会员积分记录----------"
+# p info.get_member_bonus_record "1021010011153657", 1, 10
+# puts "---------获取礼品列表----------"
+# p info.get_all_gift
+# puts "---------用户能兑换的礼品----------"
+# p info.get_gift_by_user "1021010011153657"
+# puts "---------兑换礼品----------"
+# p info.points_exchange_gift "1021010011153657", 26
+# puts "-------------------"
