@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = JoycityMallcoo::VERSION
   spec.authors       = ["Lion"]
   spec.email         = ["815694355@qq.com"]
-  spec.summary       = %q{TODO: Joycity Interface}
-  spec.description   = %q{TODO: Joycity Interface with Mallcoo}
+  spec.summary       = %q{Joycity Interface}
+  spec.description   = %q{Joycity Interface with Mallcoo}
   spec.homepage      = ""
   spec.license       = "Secrect"
 
